@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!--
+Licensee: Gon�alo(Universidade do Minho)
+License Type: Academic
+-->
+<project name="AA" default="compile">
+	<description>
+		AA
+	</description>
+
+	<property name="src.dir" location="src" />
+	<property name="lib.dir" location="lib" />
+	<property name="classes.dir" location="classes" />
+	<property name="javac.debug" value="on" />
+
+	<target name="compile" description="Compile AA">
+		<mkdir dir="${classes.dir}" />
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" debug="${javac.debug}">
+			<classpath>
+				<fileset dir="libdelDriveDevelopment&Persistency/lib" includes="*.jar"/>
+			</classpath>
+		</javac>
+		<copy todir="${classes.dir}">
+			<fileset dir="srcdelDriveDevelopment&Persistency/src">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="clean" description="Clean AA">
+		<delete dir="${classes.dir}" />
+	</target>
+
+	<target name="createSchema" description="Run create data schema sample">
+		<java classname="ormsamples.CreateAADatabaseSchema" fork="true">
+			<classpath>
+				<fileset dir="libdelDriveDevelopment&Persistency/lib" includes="*.jar"/>
+				<pathelement location="${classes.dir}"/>
+			</classpath>
+		</java>
+	</target>
+
+	<target name="createdata" description="Run create test data sample">
+		<java classname="ormsamples.CreateAAData" fork="true">
+			<classpath>
+				<fileset dir="libdelDriveDevelopment&Persistency/lib" includes="*.jar"/>
+				<pathelement location="${classes.dir}"/>
+			</classpath>
+		</java>
+	</target>
+
+	<target name="retrievedata" description="Run retrieve data sample">
+		<java classname="ormsamples.RetrieveAndUpdateAAData" fork="true">
+			<classpath>
+				<fileset dir="libdelDriveDevelopment&Persistency/lib" includes="*.jar"/>
+				<pathelement location="${classes.dir}"/>
+			</classpath>
+		</java>
+	</target>
+
+	<target name="deletedata" description="Run delete data sample">
+		<java classname="ormsamples.DeleteAAData" fork="true">
+			<classpath>
+				<fileset dir="libdelDriveDevelopment&Persistency/lib" includes="*.jar"/>
+				<pathelement location="${classes.dir}"/>
+			</classpath>
+		</java>
+	</target>
+
+	<target name="dropschema" description="Run drop schema sample">
+		<java classname="ormsamples.DropAADatabaseSchema" fork="true">
+			<classpath>
+				<fileset dir="libdelDriveDevelopment&Persistency/lib" includes="*.jar"/>
+				<pathelement location="${classes.dir}"/>
+			</classpath>
+		</java>
+	</target>
+
+	<target name="listdata" description="Run list data sample">
+		<java classname="ormsamples.ListAAData" fork="true">
+			<classpath>
+				<fileset dir="libdelDriveDevelopment&Persistency/lib" includes="*.jar"/>
+				<pathelement location="${classes.dir}"/>
+			</classpath>
+		</java>
+	</target>
+
+</project>
